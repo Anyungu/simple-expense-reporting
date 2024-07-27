@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 import ClientStoreInitializer from "@/components/ClientStoreInitializer";
 import { getAccounts } from "@/db/db.util";
 
+export const revalidate = 0;
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
