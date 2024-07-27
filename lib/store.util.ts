@@ -7,7 +7,6 @@ export function getLiveBankTransaction(
   transactionType: TransactionType,
   amount: number
 ) {
-  console.log(accounts);
   const bankAccount = accounts.find((account) => account.name === "BANK");
   const cashAccount = accounts.find((account) => account.name === "CASH");
 
