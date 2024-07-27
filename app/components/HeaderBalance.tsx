@@ -9,6 +9,7 @@ type Props = {};
 
 const HeaderBalance = ({}: Props) => {
   const { accounts } = useAccountStore();
+  console.log(accounts);
   const { amount, type } = useTransactionStore();
 
   const formatCurrency = (value: string) => {

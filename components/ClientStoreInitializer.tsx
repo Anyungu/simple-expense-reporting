@@ -8,6 +8,7 @@ type Props = {
 };
 
 function ClientStoreInitializer({ accounts }: Props) {
+  console.log(accounts);
   useEffect(() => {
     if (accounts) {
       useAccountStore.setState({ accounts });
