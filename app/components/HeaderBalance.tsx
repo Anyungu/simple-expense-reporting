@@ -20,9 +20,12 @@ const HeaderBalance = ({}: Props) => {
   };
 
   return accounts?.map((account, idx) => (
-    <div key={idx} className=" flex flex-row gap-2 items-end">
-      <p className=" text-xl lowercase">{account?.name}</p>
-      <p className=" text-2xl font-extrabold">
+    <div
+      key={idx}
+      className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end"
+    >
+      <p className=" text-lg tabs:text-xl lowercase">{account?.name}</p>
+      <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
         {formatCurrency(
           `${
             account?.name === "CASH"
