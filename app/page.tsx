@@ -9,12 +9,9 @@ import TransactionAndTable from "./components/TransactionAndTable";
 export const revalidate = 0;
 
 export default async function Home() {
-  const accounts = await getAccounts();
   const transactions = await getTransactions();
-  console.log(transactions);
   return (
     <main className=" min-h-screen">
-      <ClientStoreInitializer accounts={accounts} />
       <TransactionAndTable transactions={transactions} />
     </main>
   );
