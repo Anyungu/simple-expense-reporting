@@ -1,0 +1,26 @@
+-- CreateEnum
+CREATE TYPE "TransactionType" AS ENUM ('CASH_INVESTMENT', 'BANK_INVESTMENT', 'BANK_TO_EXPENSE', 'CASH_TO_EXPENSE', 'TRANSACTION_COST', 'BANK_TO_CASH', 'CASH_TO_BANK', 'CLIENT_TO_BANK', 'CLIENT_TO_CASH');
+
+-- CreateTable
+CREATE TABLE "Account" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
+    "balance" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Transaction" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "description" VARCHAR(255) NOT NULL,
+    "type" "TransactionType" NOT NULL,
+    "amount" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Transaction_pkey" PRIMARY KEY ("id")
+);

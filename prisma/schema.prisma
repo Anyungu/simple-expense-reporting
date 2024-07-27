@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Account {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  name      AccountName @unique
+  balance   Int         @default(0)
+}
+
+model Transaction {
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  date        DateTime        @default(now())
+  description String          @db.VarChar(255)
+  type        TransactionType
+  amount      Int             @default(0)
+}
+
+enum AccountName {
+  BANK
+  CASH
+}
+
+enum TransactionType {
+  CASH_INVESTMENT
+  BANK_INVESTMENT
+  BANK_TO_EXPENSE
+  CASH_TO_EXPENSE
+  TRANSACTION_COST
+  BANK_TO_CASH
+  CASH_TO_BANK
+  CLIENT_TO_BANK
+  CLIENT_TO_CASH
+}
