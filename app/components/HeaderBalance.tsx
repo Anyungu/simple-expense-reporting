@@ -1,16 +1,49 @@
 "use client";
 
-import { getLiveBankTransaction } from "@/lib/store.util";
-import { useAccountStore } from "@/store/account.store";
-import { useTransactionStore } from "@/store/transaction.store";
-import React from "react";
+import { AblyProvider, ChannelProvider, useChannel } from "ably/react";
+import React, { useState } from "react";
+import Ably from "ably";
+import { AccountName } from "@prisma/client";
 
-type Props = {};
+type Props = {
+  accounts: Account[];
+};
 
-const HeaderBalance = ({}: Props) => {
-  const { accounts } = useAccountStore();
-  // console.log(accounts);
-  const { amount, type } = useTransactionStore();
+const HeaderBalance = ({ accounts }: Props) => {
+  const client = new Ably.Realtime({
+    key: process.env.NEXT_PUBLIC_ABLY_API_KEY,
+    // clientId: "<client-ID>",
+  });
+
+  return (
+    <AblyProvider client={client}>
+      <ChannelProvider channelName="account-balance">
+        <ActualBalance accounts={accounts} />
+      </ChannelProvider>
+    </AblyProvider>
+  );
+};
+
+const ActualBalance = ({ accounts }: Props) => {
+  const initialBankBalance = accounts?.find(
+    (account) => account.name === "BANK"
+  )?.balance;
+  const initialCashBalance = accounts?.find(
+    (account) => account.name === "CASH"
+  )?.balance;
+
+  const [bankBalance, setBankbalance] = useState<number | undefined>(
+    initialBankBalance
+  );
+  const [cashBalance, setCashbalance] = useState<number | undefined>(
+    initialCashBalance
+  );
+
+  useChannel("account-balance", (message) => {
+    console.log(message);
+    setBankbalance(message?.data?.bank);
+    setCashbalance(message?.data?.cash);
+  });
 
   const formatCurrency = (value: string) => {
     const numberValue = parseFloat(value.replace(/[^0-9.-]+/g, ""));
@@ -20,22 +53,22 @@ const HeaderBalance = ({}: Props) => {
     return `Kes. ${numberValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
   };
 
-  return accounts?.map((account, idx) => (
-    <div
-      key={idx}
-      className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end"
-    >
-      <p className=" text-lg tabs:text-xl lowercase">{account?.name}</p>
-      <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
-        {formatCurrency(
-          `${
-            account?.name === "CASH"
-              ? getLiveBankTransaction(type, amount)?.cashBalance
-              : getLiveBankTransaction(type, amount)?.bankBalance
-          }`
-        )}
-      </p>
-    </div>
-  ));
+  return (
+    <>
+      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+        <p className=" text-lg tabs:text-xl lowercase">cash</p>
+        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+          {formatCurrency(`${cashBalance}`)}
+        </p>
+      </div>
+
+      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+        <p className=" text-lg tabs:text-xl lowercase">bank</p>
+        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+          {formatCurrency(`${bankBalance}`)}
+        </p>
+      </div>
+    </>
+  );
 };
 export default HeaderBalance;
