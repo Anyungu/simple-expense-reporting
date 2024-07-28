@@ -3,7 +3,7 @@
 import { AblyProvider, ChannelProvider, useChannel } from "ably/react";
 import React, { useState } from "react";
 import Ably from "ably";
-import { AccountName } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 type Props = {
   accounts: Account[];
@@ -25,6 +25,8 @@ const HeaderBalance = ({ accounts }: Props) => {
 };
 
 const ActualBalance = ({ accounts }: Props) => {
+  const router = useRouter();
+
   const initialBankBalance = accounts?.find(
     (account) => account.name === "BANK"
   )?.balance;
@@ -40,9 +42,10 @@ const ActualBalance = ({ accounts }: Props) => {
   );
 
   useChannel("account-balance", (message) => {
-    console.log(message);
+    // console.log(message);
     setBankbalance(message?.data?.bank);
     setCashbalance(message?.data?.cash);
+    router.refresh();
   });
 
   const formatCurrency = (value: string) => {
