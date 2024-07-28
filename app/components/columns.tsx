@@ -22,6 +22,7 @@ import { ColumnDef, Row, Table } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import TableSorting from "./TableSorting";
+import { format } from "date-fns";
 
 type Props = {
   row: Row<Transaction>;
@@ -131,6 +132,10 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     header: ({ column }) => <TableSorting column={column} title="Date" />,
     accessorKey: "date",
+    cell: ({ row }) => {
+      const date = row.original.date;
+      return date ? format(new Date(date), "PPP") : "N/A";
+    },
   },
   {
     header: ({ column }) => <TableSorting column={column} title="Desc" />,
