@@ -141,7 +141,7 @@ const TransactionForm = ({ className, ...props }: CardProps) => {
                   type,
                   amount,
                 },
-                balance: getLiveBankTransaction(type, amount),
+                balanceChange: getLiveBankTransaction(type, amount),
               }),
             }).then(async (res) => {
               setLoading(false);
