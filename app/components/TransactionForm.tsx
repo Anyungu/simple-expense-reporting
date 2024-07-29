@@ -29,8 +29,6 @@ const TransactionForm = ({ className, ...props }: CardProps) => {
   const { name, reference, amount, type, date, updateTransaction } =
     useTransactionStore();
 
-  const router = useRouter();
-
   const { toast } = useToast();
 
   return (
@@ -140,12 +138,12 @@ const TransactionForm = ({ className, ...props }: CardProps) => {
                   description: name,
                   type,
                   amount,
+                  reference,
                 },
                 balanceChange: getLiveBankTransaction(type, amount),
               }),
             }).then(async (res) => {
               setLoading(false);
-              router.refresh();
               if (res.status === 200) {
                 toast({
                   title: "Scheduled: Catch up",

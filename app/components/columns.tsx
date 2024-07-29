@@ -120,15 +120,16 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => <TableSorting column={column} title="Type" />,
     accessorKey: "type",
   },
-  // {
-  //   accessorKey: "lastName",
-  //   header: ({ column }) => <TableSorting column={column} title="Last Name" />,
-  // },
+
   {
     header: ({ column }) => <TableSorting column={column} title="Amount" />,
     accessorKey: "amount",
   },
 
+  {
+    accessorKey: "reference",
+    header: ({ column }) => <TableSorting column={column} title="Reference" />,
+  },
   {
     header: ({ column }) => <TableSorting column={column} title="Date" />,
     accessorKey: "date",

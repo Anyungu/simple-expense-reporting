@@ -24,6 +24,7 @@ model Transaction {
   description String          @db.VarChar(255)
   type        TransactionType
   amount      Int             @default(0)
+  reference   String          @default("") @db.VarChar(255)
 }
 
 enum AccountName {
