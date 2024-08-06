@@ -17,14 +17,15 @@ model Account {
 }
 
 model Transaction {
-  id          Int             @id @default(autoincrement())
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  date        DateTime        @default(now())
-  description String          @db.VarChar(255)
-  type        TransactionType
-  amount      Int             @default(0)
-  reference   String          @default("") @db.VarChar(255)
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  date              DateTime        @default(now())
+  description       String          @db.VarChar(255)
+  type              TransactionType
+  amount            Int             @default(0)
+  reference         String          @default("") @db.VarChar(255)
+  transactionRolled Boolean         @default(false)
 }
 
 enum AccountName {

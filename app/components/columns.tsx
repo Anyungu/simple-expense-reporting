@@ -23,6 +23,7 @@ import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import TableSorting from "./TableSorting";
 import { format } from "date-fns";
+import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
 
 type Props = {
   row: Row<Transaction>;
@@ -30,8 +31,7 @@ type Props = {
 
 const ActionHeader = ({ row }: Props) => {
   const router = useRouter();
-  const user = row.original as any;
-  // const session = useCheckSession({ router });
+  const transaction = row.original as Transaction;
 
   return (
     <DropdownMenu>
@@ -42,51 +42,50 @@ const ActionHeader = ({ row }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           className=" cursor-pointer"
           onClick={() => navigator.clipboard.writeText(user.phoneNumber)}
         >
           Copy phone
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className=" cursor-pointer"
           onClick={() => {
-            // deleteRequest(
-            //   "admin/user/delete",
-            //   {
-            //     supabaseUid: user.supabaseUid,
-            //   },
-            //   { authorization: `Bearer ${session?.access_token}` }!!
-            // )
-            //   .then((res) => {
-            //     // setUploading(false)
-            //     router.refresh();
-            //     toast({
-            //       className: cn(
-            //         "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4 bg-green-300"
-            //       ),
-            //       variant: "default",
-            //       title: "Success",
-            //       description: "User deleted",
-            //     });
-            //   })
-            //   .catch((e) => {
-            //     console.error(e);
-            //     // updateDirectSpecificEvent({ popularEvent: !val })
-            //     // setUploading(false)
-            //     toast({
-            //       className: cn(
-            //         "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4 bg-red-300"
-            //       ),
-            //       variant: "default",
-            //       title: "Uh oh! Something went wrong.",
-            //       description: "Delete failed",
-            //     });
-            //   });
+            // setLoading(true);
+            fetch("/transaction", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                id: transaction?.id,
+                transactionRolled: !transaction?.transactionRolled,
+                balanceChange: getLiveBalanceAfterTransaction(
+                  transaction?.type,
+                  transaction?.transactionRolled
+                    ? transaction?.amount
+                    : -transaction?.amount
+                ),
+              }),
+            }).then(async (res) => {
+              // setLoading(false);
+              if (res.status === 200) {
+                toast({
+                  description: "Success",
+                  variant: "default",
+                });
+              } else {
+                const { error } = await res.json();
+                toast({
+                  description: "Fail",
+                  variant: "destructive",
+                });
+              }
+            });
           }}
         >
-          Delete user
+          Roll Back
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -127,10 +126,6 @@ export const columns: ColumnDef<Transaction>[] = [
   },
 
   {
-    accessorKey: "reference",
-    header: ({ column }) => <TableSorting column={column} title="Reference" />,
-  },
-  {
     header: ({ column }) => <TableSorting column={column} title="Date" />,
     accessorKey: "date",
     cell: ({ row }) => {
@@ -139,8 +134,26 @@ export const columns: ColumnDef<Transaction>[] = [
     },
   },
   {
+    accessorKey: "transactionRolled",
+    header: ({ column }) => <TableSorting column={column} title="Status" />,
+    cell: ({ row }) => {
+      const status = row.original.transactionRolled;
+      return (
+        <span
+          className={`relative inline-flex rounded-full h-3 w-3 ${
+            status === false ? "bg-green-500" : "bg-red-500"
+          }`}
+        ></span>
+      );
+    },
+  },
+  {
     header: ({ column }) => <TableSorting column={column} title="Desc" />,
     accessorKey: "description",
+  },
+  {
+    accessorKey: "reference",
+    header: ({ column }) => <TableSorting column={column} title="Reference" />,
   },
   // {
   //   header: "Role",

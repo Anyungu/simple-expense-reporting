@@ -1,7 +1,6 @@
-import { useAccountStore } from "@/store/account.store";
 import { TransactionType } from "@prisma/client";
 
-export function getLiveBankTransaction(
+export function getLiveBalanceAfterTransaction(
   transactionType: TransactionType,
   amount: number
 ) {

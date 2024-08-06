@@ -18,8 +18,8 @@ import DatePicker from "./DatePicker";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useAccountStore } from "@/store/account.store";
 import { useToast } from "@/components/ui/use-toast";
-import { getLiveBankTransaction } from "@/lib/store.util";
 import { useRouter } from "next/navigation";
+import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
 
 type CardProps = React.ComponentProps<typeof Card>;
 type Props = {};
@@ -32,7 +32,7 @@ const TransactionForm = ({ className, ...props }: CardProps) => {
   const { toast } = useToast();
 
   return (
-    <Card className={cn(" laptop:w-[680px]", className)} {...props}>
+    <Card className={cn("w-full laptop:w-[680px]", className)} {...props}>
       <CardHeader>
         <CardTitle className=" uppercase">New Transaction</CardTitle>
         <CardDescription>
@@ -140,21 +140,19 @@ const TransactionForm = ({ className, ...props }: CardProps) => {
                   amount,
                   reference,
                 },
-                balanceChange: getLiveBankTransaction(type, amount),
+                balanceChange: getLiveBalanceAfterTransaction(type, amount),
               }),
             }).then(async (res) => {
               setLoading(false);
               if (res.status === 200) {
                 toast({
-                  title: "Scheduled: Catch up",
-                  description: "Friday, February 10, 2023 at 5:57 PM",
+                  description: "Success",
                   variant: "default",
                 });
               } else {
                 const { error } = await res.json();
                 toast({
-                  title: "Scheduled: Catch up",
-                  description: "Friday, February 10, 2023 at 5:57 PM",
+                  description: "Fail",
                   variant: "destructive",
                 });
               }

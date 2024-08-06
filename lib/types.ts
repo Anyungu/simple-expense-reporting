@@ -22,4 +22,6 @@ type Transaction = {
   description: string;
   type: TransactionType;
   amount: number;
+  reference: string;
+  transactionRolled: boolean;
 };
