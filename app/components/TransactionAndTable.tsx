@@ -40,7 +40,7 @@ const TransactionAndTable = ({ transactions }: Props) => {
               onClick={toggleForm}
             />
           </div>
-          {showForm && <TransactionForm />}
+          {showForm && <TransactionForm toggleForm={toggleForm} />}
         </>
       </div>
 

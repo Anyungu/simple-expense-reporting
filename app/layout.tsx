@@ -4,6 +4,13 @@ import "./globals.css";
 import Header from "./components/Header";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,19 +25,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background antialiased",
-          inter.className
-        )}
-      >
-        <main className=" min-h-screen min-w-screen bg-gradient-to-r from-blue-300 to-purple-300">
-          <Header />
-          {children}
-          <Toaster />
-        </main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={cn(
+            "min-h-screen bg-background antialiased",
+            inter.className
+          )}
+        >
+          <header>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </header>
+          <main className=" min-h-screen min-w-screen bg-gradient-to-r from-blue-300 to-purple-300">
+            <Header />
+            {children}
+            <Toaster />
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
