@@ -91,7 +91,7 @@ const ActualBalance = ({ accounts }: Props) => {
         </p>
       </div>
       
-      <div className="flex justify-between w-full mb-4">
+      <div className="flex justify-around w-full mb-4">
         <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
           <p className="text-lg tabs:text-xl lowercase">cash</p>
           <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
@@ -106,7 +106,7 @@ const ActualBalance = ({ accounts }: Props) => {
         </div>
       </div>
       
-      <div className="flex justify-between w-full">
+      <div className="flex justify-around w-full">
         <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
           <p className="text-lg tabs:text-xl lowercase">revenue</p>
           <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
