@@ -40,6 +40,8 @@ export default function RootLayout({
             <SignedIn>
               <UserButton />
             </SignedIn>
+          {/* <header className="bg-gradient-to-r from-blue-300 to-purple-300">
+            
           </header> */}
           <main className=" min-h-screen min-w-screen bg-gradient-to-r from-blue-300 to-purple-300">
             <Header />
