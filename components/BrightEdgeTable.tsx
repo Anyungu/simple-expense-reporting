@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { Input } from "./ui/input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -59,6 +60,16 @@ export function BrightEdgeTable<TData, TValue>({
   return (
     <div className="space-y-4">
       <div className="rounded-md border bg-white">
+        <div className="flex items-center py-2 justify-between">
+          <Input
+            placeholder={`Search transactions...`}
+            value={table.getState().globalFilter ?? ""}
+            onChange={(event) => {
+              table.setGlobalFilter(event?.target?.value?.toLowerCase());
+            }}
+            className="max-w-sm"
+          />
+        </div>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

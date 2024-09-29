@@ -15,18 +15,17 @@ type Props = {};
 
 const Header = async ({ }: Props) => {
   const accounts = await getAccounts();
-  console.log(accounts);
+  // console.log(accounts);
   return (
     <>
 
-      <SignedOut>
+      {/* <SignedOut>
         <SignInButton />
       </SignedOut>
       <SignedIn>
         <UserButton />
-      </SignedIn>
+      </SignedIn> */}
       <header className=" sticky top-2 bg-red flex flex-row justify-around py-4">
-
         <HeaderBalance accounts={accounts} />
       </header>
     </>

@@ -38,21 +38,39 @@ const ActualBalance = ({ accounts }: Props) => {
     (account) => account.name === "INVESTMENT"
   )?.balance;
 
+  const initialRevenueBalance = accounts?.find(
+    (account) => account.name === "REVENUE"
+  )?.balance;
+
+  const initialExpenditureBalance = accounts?.find(
+    (account) => account.name === "EXPENDITURE"
+  )?.balance;
+
   const [bankBalance, setBankbalance] = useState<number | undefined>(
     initialBankBalance
   );
   const [cashBalance, setCashbalance] = useState<number | undefined>(
     initialCashBalance
   );
-  const [investmentBalance, setInvestmentbalance] = useState<number | undefined>(
-    initialInvestmentBalance
+  const [investmentBalance, setInvestmentbalance] = useState<
+    number | undefined
+  >(initialInvestmentBalance);
+
+  const [revenueBalance, setRevenuebalance] = useState<number | undefined>(
+    initialRevenueBalance
   );
+
+  const [expenditureBalance, setExpenditurebalance] = useState<
+    number | undefined
+  >(initialExpenditureBalance);
 
   useChannel("account-balance", (message) => {
     // console.log(message);
     setBankbalance(message?.data?.bank);
     setCashbalance(message?.data?.cash);
     setInvestmentbalance(message?.data?.investment);
+    setRevenuebalance(message?.data?.revenue);
+    setExpenditurebalance(message?.data?.expenditure);
     router.refresh();
   });
 
@@ -65,27 +83,50 @@ const ActualBalance = ({ accounts }: Props) => {
   };
 
   return (
-    <>
-      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-        <p className=" text-lg tabs:text-xl lowercase">investment</p>
-        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
-          {formatCurrency(`${investmentBalance}`)}
+    <div className="flex flex-col items-center w-full px-12">
+      <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-center mb-4">
+        <p className="text-lg tabs:text-xl lowercase">investment</p>
+        <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+          {formatCurrency(`${investmentBalance ?? 0}`)}
         </p>
       </div>
-      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-        <p className=" text-lg tabs:text-xl lowercase">cash</p>
-        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
-          {formatCurrency(`${cashBalance}`)}
-        </p>
+      
+      <div className="flex justify-between w-full mb-4">
+        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+          <p className="text-lg tabs:text-xl lowercase">cash</p>
+          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+            {formatCurrency(`${cashBalance ?? 0}`)}
+          </p>
+        </div>
+        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+          <p className="text-lg tabs:text-xl lowercase">bank</p>
+          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+            {formatCurrency(`${bankBalance ?? 0}`)}
+          </p>
+        </div>
       </div>
-
-      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-        <p className=" text-lg tabs:text-xl lowercase">bank</p>
-        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
-          {formatCurrency(`${bankBalance}`)}
-        </p>
+      
+      <div className="flex justify-between w-full">
+        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+          <p className="text-lg tabs:text-xl lowercase">revenue</p>
+          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+            {formatCurrency(`${revenueBalance ?? 0}`)}
+          </p>
+        </div>
+        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+          <p className="text-lg tabs:text-xl lowercase">expenditure</p>
+          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+            {formatCurrency(`${expenditureBalance ?? 0}`)}
+          </p>
+        </div>
+        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+          <p className="text-lg tabs:text-xl lowercase">profit</p>
+          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+            {formatCurrency(`${(revenueBalance ?? 0) - (expenditureBalance ?? 0)}`)}
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 export default HeaderBalance;

@@ -9,6 +9,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: amount,
       cashBalance: 0,
       investmentBalance: amount,
+      revenueBalance: 0,
+      expenditureBalance: 0,
     };
   }
 
@@ -17,6 +19,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: -amount,
       cashBalance: amount,
       investmentBalance: 0,
+      revenueBalance: 0,
+      expenditureBalance: 0,
     };
   }
 
@@ -25,6 +29,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: -amount,
       cashBalance: 0,
       investmentBalance: 0,
+      revenueBalance: 0,
+      expenditureBalance: amount,
     };
   }
 
@@ -33,6 +39,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: 0,
       cashBalance: amount,
       investmentBalance: amount,
+      revenueBalance: 0,
+      expenditureBalance: 0,
     };
   }
 
@@ -41,6 +49,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: amount,
       cashBalance: -amount,
       investmentBalance: 0,
+      revenueBalance: 0,
+      expenditureBalance: 0,
     };
   }
 
@@ -49,6 +59,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: 0,
       cashBalance: -amount,
       investmentBalance: 0,
+      revenueBalance: 0,
+      expenditureBalance: amount,
     };
   }
 
@@ -57,6 +69,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: amount,
       cashBalance: 0,
       investmentBalance: 0,
+      revenueBalance: amount,
+      expenditureBalance: 0,
     };
   }
 
@@ -65,6 +79,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: 0,
       cashBalance: amount,
       investmentBalance: 0,
+      revenueBalance: amount,
+      expenditureBalance: 0,
     };
   }
 
@@ -73,6 +89,8 @@ export function getLiveBalanceAfterTransaction(
       bankBalance: 0,
       cashBalance: -amount,
       investmentBalance: 0,
+      revenueBalance: 0,
+      expenditureBalance: 0,
     };
   }
 }
