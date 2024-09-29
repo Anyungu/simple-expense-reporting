@@ -9,7 +9,7 @@ type TransactionType =
   | "CLIENT_TO_BANK"
   | "CLIENT_TO_CASH";
 
-type AccountName = "BANK" | "CASH" | "INVESTMENT";
+type AccountName = "BANK" | "CASH" | "INVESTMENT" | "REVENUE" | "EXPENDITURE";
 type Account = {
   id: number;
   name: AccountName;

@@ -32,6 +32,8 @@ enum AccountName {
   BANK
   CASH
   INVESTMENT
+  REVENUE
+  EXPENDITURE
 }
 
 enum TransactionType {
