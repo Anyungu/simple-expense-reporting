@@ -33,14 +33,14 @@ export default function RootLayout({
             inter.className
           )}
         >
-          <header>
+          {/* <header>
             <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton />
             </SignedIn>
-          </header>
+          </header> */}
           <main className=" min-h-screen min-w-screen bg-gradient-to-r from-blue-300 to-purple-300">
             <Header />
             {children}

@@ -8,6 +8,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: amount,
       cashBalance: 0,
+      investmentBalance: amount,
     };
   }
 
@@ -15,6 +16,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: -amount,
       cashBalance: amount,
+      investmentBalance: 0,
     };
   }
 
@@ -22,6 +24,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: -amount,
       cashBalance: 0,
+      investmentBalance: 0,
     };
   }
 
@@ -29,6 +32,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: 0,
       cashBalance: amount,
+      investmentBalance: amount,
     };
   }
 
@@ -36,6 +40,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: amount,
       cashBalance: -amount,
+      investmentBalance: 0,
     };
   }
 
@@ -43,6 +48,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: 0,
       cashBalance: -amount,
+      investmentBalance: 0,
     };
   }
 
@@ -50,6 +56,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: amount,
       cashBalance: 0,
+      investmentBalance: 0,
     };
   }
 
@@ -57,6 +64,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: 0,
       cashBalance: amount,
+      investmentBalance: 0,
     };
   }
 
@@ -64,6 +72,7 @@ export function getLiveBalanceAfterTransaction(
     return {
       bankBalance: 0,
       cashBalance: -amount,
+      investmentBalance: 0,
     };
   }
 }

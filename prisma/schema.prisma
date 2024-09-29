@@ -31,6 +31,7 @@ model Transaction {
 enum AccountName {
   BANK
   CASH
+  INVESTMENT
 }
 
 enum TransactionType {

@@ -34,17 +34,25 @@ const ActualBalance = ({ accounts }: Props) => {
     (account) => account.name === "CASH"
   )?.balance;
 
+  const initialInvestmentBalance = accounts?.find(
+    (account) => account.name === "INVESTMENT"
+  )?.balance;
+
   const [bankBalance, setBankbalance] = useState<number | undefined>(
     initialBankBalance
   );
   const [cashBalance, setCashbalance] = useState<number | undefined>(
     initialCashBalance
   );
+  const [investmentBalance, setInvestmentbalance] = useState<number | undefined>(
+    initialInvestmentBalance
+  );
 
   useChannel("account-balance", (message) => {
     // console.log(message);
     setBankbalance(message?.data?.bank);
     setCashbalance(message?.data?.cash);
+    setInvestmentbalance(message?.data?.investment);
     router.refresh();
   });
 
@@ -58,6 +66,12 @@ const ActualBalance = ({ accounts }: Props) => {
 
   return (
     <>
+      <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
+        <p className=" text-lg tabs:text-xl lowercase">investment</p>
+        <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+          {formatCurrency(`${investmentBalance}`)}
+        </p>
+      </div>
       <div className=" flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
         <p className=" text-lg tabs:text-xl lowercase">cash</p>
         <p className=" text-xl tabs:text-2xl font-bold tabs:font-extrabold">
