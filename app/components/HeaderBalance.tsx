@@ -83,45 +83,45 @@ const ActualBalance = ({ accounts }: Props) => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full px-12">
-      <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-center mb-4">
-        <p className="text-lg tabs:text-xl lowercase">investment</p>
-        <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+    <div className="flex flex-col items-center w-full px-4 sm:px-12">
+      <div className="flex flex-col items-center mb-6 sm:mb-4">
+        <p className="text-lg sm:text-xl lowercase">investment</p>
+        <p className="text-xl sm:text-2xl font-bold">
           {formatCurrency(`${investmentBalance ?? 0}`)}
         </p>
       </div>
       
-      <div className="flex justify-around w-full mb-4">
-        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-          <p className="text-lg tabs:text-xl lowercase">cash</p>
-          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+      <div className="grid grid-cols-2 gap-4 w-full mb-6 sm:mb-4">
+        <div className="flex flex-col items-center">
+          <p className="text-lg sm:text-xl lowercase">cash</p>
+          <p className="text-xl sm:text-2xl font-bold">
             {formatCurrency(`${cashBalance ?? 0}`)}
           </p>
         </div>
-        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-          <p className="text-lg tabs:text-xl lowercase">bank</p>
-          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+        <div className="flex flex-col items-center">
+          <p className="text-lg sm:text-xl lowercase">bank</p>
+          <p className="text-xl sm:text-2xl font-bold">
             {formatCurrency(`${bankBalance ?? 0}`)}
           </p>
         </div>
       </div>
       
-      <div className="flex justify-around w-full">
-        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-          <p className="text-lg tabs:text-xl lowercase">revenue</p>
-          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+        <div className="flex flex-col items-center">
+          <p className="text-lg sm:text-xl lowercase">revenue</p>
+          <p className="text-xl sm:text-2xl font-bold">
             {formatCurrency(`${revenueBalance ?? 0}`)}
           </p>
         </div>
-        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-          <p className="text-lg tabs:text-xl lowercase">expenditure</p>
-          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+        <div className="flex flex-col items-center">
+          <p className="text-lg sm:text-xl lowercase">expenditure</p>
+          <p className="text-xl sm:text-2xl font-bold">
             {formatCurrency(`${expenditureBalance ?? 0}`)}
           </p>
         </div>
-        <div className="flex flex-col tabs:flex-row gap-1 tabs:gap-2 items-start tabs:items-end">
-          <p className="text-lg tabs:text-xl lowercase">profit</p>
-          <p className="text-xl tabs:text-2xl font-bold tabs:font-extrabold">
+        <div className="flex flex-col items-center">
+          <p className="text-lg sm:text-xl lowercase">profit</p>
+          <p className="text-xl sm:text-2xl font-bold">
             {formatCurrency(`${(revenueBalance ?? 0) - (expenditureBalance ?? 0)}`)}
           </p>
         </div>
