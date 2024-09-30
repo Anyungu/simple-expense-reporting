@@ -10,7 +10,7 @@ type Props = {};
 const Header = ({}: Props) => {
   const { activeHeaderTab, updateActiveHeaderTab } = useOpsStore();
   return (
-    <div className=" flex flex-row justify-between pt-4 px-2 bg-[#FFFFFF] shadow-md">
+    <div className=" flex flex-row justify-between pt-4 px-2 bg-[#FFFFFF] dark:bg-[#FFFFFF] shadow-2xl">
       <div className="flex flex-row space-x-6">
         <div className="">
           <Image
