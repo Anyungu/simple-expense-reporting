@@ -28,7 +28,7 @@ export const useTransactionStore = create<TransactionStore>()(
         }),
     }),
     {
-      name: "account-storage",
+      name: "transaction-storage",
       storage: createJSONStorage(() => sessionStorage),
     }
   )

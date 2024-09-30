@@ -22,12 +22,10 @@ import { useRouter } from "next/navigation";
 import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
 
 type CardProps = React.ComponentProps<typeof Card>;
-type CustomProps = {
-  toggleForm: () => void;
-};
+type CustomProps = {};
 type Props = CardProps & CustomProps;
 
-const TransactionForm = ({ className, toggleForm, ...props }: Props) => {
+const TransactionForm = ({ className, ...props }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { name, reference, amount, type, date, updateTransaction } =
     useTransactionStore();
@@ -147,7 +145,6 @@ const TransactionForm = ({ className, toggleForm, ...props }: Props) => {
               }),
             }).then(async (res) => {
               setLoading(false);
-              toggleForm();
               if (res.status === 200) {
                 toast({
                   description: "Success",

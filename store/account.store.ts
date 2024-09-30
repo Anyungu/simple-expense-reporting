@@ -3,7 +3,6 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 type AccountStore = {
   accounts: Account[];
-  
 };
 
 export const useAccountStore = create<AccountStore>()(

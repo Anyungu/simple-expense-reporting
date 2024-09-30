@@ -25,3 +25,5 @@ type Transaction = {
   reference: string;
   transactionRolled: boolean;
 };
+
+type HeaderTab = "accounts" | "transactions" | "submit";
