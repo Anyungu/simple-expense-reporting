@@ -32,7 +32,7 @@ export default function RootLayout({
             inter.className
           )}
         >
-          <main className=" min-h-screen min-w-screen bg-gray-200 bg-gradient-to-r from-blue-300 to-purple-300">
+          <main className=" min-h-screen min-w-screen bg-gradient-to-r from-[#93C5FD] to-[#D8B4FE]">
             {children}
             <Toaster />
           </main>
