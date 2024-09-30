@@ -10,13 +10,13 @@ type Props = {};
 const Header = ({}: Props) => {
   const { activeHeaderTab, updateActiveHeaderTab } = useOpsStore();
   return (
-    <div className=" flex flex-row justify-between pt-6 px-2 bg-white shadow-2xl">
+    <div className=" flex flex-row justify-between pt-4 px-2 bg-white shadow-2xl">
       <div className="flex flex-row space-x-6">
-        <div className="py-2">
+        <div className="">
           <Image
             src={"/logo/file.jpg"}
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             alt="Picture of the author"
           />
         </div>
