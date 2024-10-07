@@ -20,6 +20,17 @@ function CardsSection({ accounts }: Props) {
           {accounts.map((account, idx) => (
             <ValueCard key={idx} account={account} />
           ))}
+          <ValueCard
+            account={{
+              id: 1000,
+              name: "MARGIN",
+              balance:
+                (accounts.find((account) => account.name === "REVENUE")
+                  ?.balance ?? 0) -
+                (accounts.find((account) => account.name === "EXPENDITURE")
+                  ?.balance ?? 0),
+            }}
+          />
         </div>
       </ChannelProvider>
     </AblyProvider>
