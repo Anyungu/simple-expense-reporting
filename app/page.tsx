@@ -17,7 +17,7 @@ export default async function Home() {
   );
   const accounts = await getAccounts(session?.user?.companies[0]?.id || 0);
   return (
-    <main className=" min-h-screen w-full">
+    <main className=" h-[calc(100dvh)] w-full">
       <MainPage transactions={transactions} accounts={accounts} />
     </main>
   );

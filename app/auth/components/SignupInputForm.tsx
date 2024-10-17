@@ -19,11 +19,12 @@ import { Input } from "@/components/ui/input";
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(2).max(50),
+  confirm: z.string().min(2).max(50),
 });
 
 type Props = {};
 
-const LoginInputForm = ({}: Props) => {
+const SignupInputForm = ({}: Props) => {
   const loginForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,38 +57,56 @@ const LoginInputForm = ({}: Props) => {
             </FormItem>
           )}
         />
-        <div className=" space-y-1">
-          <FormField
-            control={loginForm.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className=" hidden laptop:block">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Confirm your password"
-                    {...field}
-                    className=" focus-visible:ring-0 border-0 border-b border-slate-300 rounded-none"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className=" text-right">
-            <p className=" text-xs">Forgot password?</p>
-          </div>
-        </div>
+
+        <FormField
+          control={loginForm.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className=" hidden laptop:block">Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Type your password"
+                  {...field}
+                  className=" focus-visible:ring-0 border-0 border-b border-slate-300 rounded-none"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={loginForm.control}
+          name="confirm"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className=" hidden laptop:block">
+                Confirm Password
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Type your password"
+                  {...field}
+                  className=" focus-visible:ring-0 border-0 border-b border-slate-300 rounded-none"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button
           className="rounded-3xl w-full uppercase bg-gradient-to-r from-[#93C5FD] to-[#D8B4FE] font-semibold"
           type="submit"
         >
-          Login
+          Sign Up
         </Button>
       </form>
     </Form>
   );
 };
 
-export default LoginInputForm;
+export default SignupInputForm;

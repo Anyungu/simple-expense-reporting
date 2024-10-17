@@ -10,7 +10,7 @@ const page = async (props: Props) => {
   console.log(session)
   if (session) redirect("/");
   return (
-    <div className=" flex justify-center items-center h-screen">
+    <div className=" h-[calc(100dvh)] flex justify-center items-center">
       <LoginRegisterForm />
     </div>
   );

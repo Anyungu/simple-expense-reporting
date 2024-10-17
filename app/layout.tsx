@@ -21,12 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen  antialiased",
+          "h-[calc(100dvh)] bg-gradient-to-r from-bg-from to-bg-to  antialiased",
           inter.className
         )}
       >
         <NextAuthProvider>
-          <main className=" min-h-screen min-w-screen bg-gradient-to-r from-bg-from to-bg-to">
+          <main className=" h-[calc(100dvh)] min-w-screen b">
             {children}
             <Toaster />
           </main>
