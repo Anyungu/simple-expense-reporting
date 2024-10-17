@@ -1,14 +1,17 @@
 // import { cache } from "react";
-import { UserRoleEnum } from "@prisma/client";
+import { TransactionType, UserRoleEnum } from "@prisma/client";
 import prisma from "./db";
 
-export const getAccounts = async () => {
-  const accounts: BalanceAccount[] = await prisma?.balanceAccount?.findMany();
+export const getAccounts = async (companyId: number) => {
+  const accounts: BalanceAccount[] = await prisma?.balanceAccount?.findMany({
+    where: { companyId },
+  });
   return accounts;
 };
 
-export const getTransactions = async () => {
+export const getTransactions = async (companyId: number) => {
   const transactions: Transaction[] = await prisma?.transaction?.findMany({
+    where: { companyId },
     orderBy: [
       {
         date: "desc",

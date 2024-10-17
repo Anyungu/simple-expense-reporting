@@ -20,12 +20,14 @@ import { useAccountStore } from "@/store/account.store";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
+import { useSession } from "next-auth/react";
 
 type CardProps = React.ComponentProps<typeof Card>;
 type CustomProps = {};
 type Props = CardProps & CustomProps;
 
 const TransactionForm = ({ className, ...props }: Props) => {
+  const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(false);
   const { name, reference, amount, type, date, updateTransaction } =
     useTransactionStore();
@@ -140,6 +142,7 @@ const TransactionForm = ({ className, ...props }: Props) => {
                   type,
                   amount,
                   reference,
+                  companyId: session?.user?.id,
                 },
                 balanceChange: getLiveBalanceAfterTransaction(type, amount),
               }),

@@ -6,12 +6,16 @@ import { BrightEdgeTable } from "@/components/BrightEdgeTable";
 import { columns } from "./components/columns";
 import TransactionAndTable from "./components/TransactionAndTable";
 import MainPage from "./MainPage";
+import { auth } from "@/auth";
 
 export const revalidate = 0;
 
 export default async function Home() {
-  const transactions = await getTransactions();
-  const accounts = await getAccounts();
+  const session = await auth();
+  const transactions = await getTransactions(
+    session?.user?.companies[0]?.id || 0
+  );
+  const accounts = await getAccounts(session?.user?.companies[0]?.id || 0);
   return (
     <main className=" min-h-screen w-full">
       <MainPage transactions={transactions} accounts={accounts} />
