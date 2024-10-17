@@ -3,13 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  ChevronLeft,
-  ChevronRight,
-  Loader2,
-  Loader2Icon,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import ImageEditor from "./ImageEditor";
 import { createCompanyAction } from "@/lib/actions/db";
@@ -245,7 +239,9 @@ const CompanyStepperForm = () => {
             }}
           >
             <div>{creatingCompany ? "Submitting..." : "Submit"}</div>
-            {!creatingCompany && <Loader2Icon className="animate-spin" size={18} />}
+            {!creatingCompany && (
+              <Loader2Icon className="animate-spin" size={18} />
+            )}
           </motion.button>
         )}
       </div>
