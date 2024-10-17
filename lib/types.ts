@@ -1,9 +1,19 @@
 type TransactionType =
-  | "CASH_INVESTMENT"
-  | "BANK_INVESTMENT"
+  | "INVESTMENT_TO_CASH"
+  | "INVESTMENT_TO_BANK"
+  | "INVESTMENT_TO_ASSET"
+  | "LOAN_TO_BANK"
+  | "LOAN_TO_CASH"
+  | "LOAN_TO_ASSET"
+  | "CASH_TO_LOAN"
+  | "BANK_TO_LOAN"
+  | "CASH_TO_ASSET"
+  | "BANK_TO_ASSET"
+  | "ASSET_TO_BANK"
+  | "ASSET_TO_CASH"
   | "BANK_TO_EXPENSE"
   | "CASH_TO_EXPENSE"
-  | "TRANSACTION_COST"
+  | "LOAN_TO_EXPENSE"
   | "BANK_TO_CASH"
   | "CASH_TO_BANK"
   | "CLIENT_TO_BANK"
@@ -15,9 +25,11 @@ type AccountName =
   | "INVESTMENT"
   | "REVENUE"
   | "EXPENDITURE"
-  | "MARGIN";
+  | "MARGIN"
+  | "LOAN"
+  | "ASSET";
 
-type Account = {
+type BalanceAccount = {
   id: number;
   name: AccountName;
   balance: number;
@@ -34,3 +46,32 @@ type Transaction = {
 };
 
 type HeaderTab = "accounts" | "transactions" | "submit";
+
+type Company = {
+  id: number;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  description: string;
+  logo: string;
+};
+
+type CompanyFormData = {
+  name: string;
+  logo: string;
+  description: string;
+  investment: number;
+  assetsValue: number;
+  totalRevenue: number;
+  totalExpenditure: number;
+  loanBalance: number;
+  bankBalance: number;
+  cashBalance: number;
+};
+
+type StepConfig = {
+  name: string;
+  field: keyof CompanyFormData;
+  type: "text" | "number" | "textarea" | "custom";
+  question: string;
+};

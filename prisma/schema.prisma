@@ -8,12 +8,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Account {
+model BalanceAccount {
   id        Int         @id @default(autoincrement())
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   name      AccountName @unique
   balance   Int         @default(0)
+  companyId Int
+  company   Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, name])
 }
 
 model Transaction {
@@ -26,24 +30,134 @@ model Transaction {
   amount            Int             @default(0)
   reference         String          @default("") @db.VarChar(255)
   transactionRolled Boolean         @default(false)
+  companyId         Int
+  company           Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
 }
 
 enum AccountName {
   BANK
   CASH
+  LOAN
   INVESTMENT
+  ASSET
   REVENUE
   EXPENDITURE
+  MARGIN
 }
 
 enum TransactionType {
-  CASH_INVESTMENT
-  BANK_INVESTMENT
+  INVESTMENT_TO_CASH
+  INVESTMENT_TO_BANK
+  INVESTMENT_TO_ASSET
+  LOAN_TO_BANK
+  LOAN_TO_CASH
+  LOAN_TO_ASSET
+  CASH_TO_LOAN
+  BANK_TO_LOAN
+  CASH_TO_ASSET
+  BANK_TO_ASSET
+  ASSET_TO_BANK
+  ASSET_TO_CASH
   BANK_TO_EXPENSE
   CASH_TO_EXPENSE
-  TRANSACTION_COST
+  LOAN_TO_EXPENSE
   BANK_TO_CASH
   CASH_TO_BANK
   CLIENT_TO_BANK
   CLIENT_TO_CASH
+}
+
+model User {
+  id            String            @id @default(cuid())
+  name          String?
+  email         String            @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  companies     UserCompanyRole[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Company {
+  id          Int               @id @default(autoincrement())
+  name        String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  description String            @db.VarChar(255)
+  logo        String            @db.Text()
+  users       UserCompanyRole[]
+  accounts    BalanceAccount[]
+  Transaction Transaction[]
+  Asset       Asset[]
+}
+
+model UserCompanyRole {
+  userId    String
+  companyId Int
+  role      UserRoleEnum
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, companyId])
+}
+
+enum UserRoleEnum {
+  SUPER_ADMIN
+  COMPANY_ADMIN
+  USER_ADMIN
+}
+
+model Asset {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?  @db.VarChar(255)
+  amount      Int      @default(0)
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
 }

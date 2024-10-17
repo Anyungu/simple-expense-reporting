@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     prisma.transaction.create({
       data,
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.BANK,
       },
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.CASH,
       },
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.INVESTMENT,
       },
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.REVENUE,
       },
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.EXPENDITURE,
       },
@@ -101,7 +101,7 @@ export async function PUT(request: Request) {
         transactionRolled,
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.BANK,
       },
@@ -111,7 +111,7 @@ export async function PUT(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.CASH,
       },
@@ -122,7 +122,7 @@ export async function PUT(request: Request) {
       },
     }),
 
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.INVESTMENT,
       },
@@ -132,7 +132,7 @@ export async function PUT(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.REVENUE,
       },
@@ -142,7 +142,7 @@ export async function PUT(request: Request) {
         },
       },
     }),
-    prisma.account.update({
+    prisma.balanceAccount.update({
       where: {
         name: AccountName.EXPENDITURE,
       },
@@ -153,27 +153,27 @@ export async function PUT(request: Request) {
       },
     }),
 
-    prisma.account.findUnique({
+    prisma.balanceAccount.findUnique({
       where: {
         name: AccountName.BANK,
       },
     }),
-    prisma.account.findUnique({
+    prisma.balanceAccount.findUnique({
       where: {
         name: AccountName.CASH,
       },
     }),
-    prisma.account.findUnique({
+    prisma.balanceAccount.findUnique({
       where: {
         name: AccountName.INVESTMENT,
       },
     }),
-    prisma.account.findUnique({
+    prisma.balanceAccount.findUnique({
       where: {
         name: AccountName.REVENUE,
       },
     }),
-    prisma.account.findUnique({
+    prisma.balanceAccount.findUnique({
       where: {
         name: AccountName.EXPENDITURE,
       },

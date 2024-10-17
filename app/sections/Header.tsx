@@ -1,14 +1,19 @@
 "use client";
 
 import { useOpsStore } from "@/store/ops.store";
-import { UserButton } from "@clerk/nextjs";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 
 type Props = {};
 
 const Header = ({}: Props) => {
+  const { data: session } = useSession();
   const { activeHeaderTab, updateActiveHeaderTab } = useOpsStore();
+
+  if (!session?.user.companies || session.user.companies.length === 0) {
+    return null;
+  }
   return (
     <div className=" flex flex-row justify-between pt-4 px-2 bg-[#FFFFFF]  shadow-2xl">
       <div className="flex flex-row space-x-6">
@@ -53,9 +58,7 @@ const Header = ({}: Props) => {
           Transactions
         </div>
       </div>
-      <div>
-        <UserButton />
-      </div>
+      <div>{/* <UserButton /> */}</div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Body from "./sections/Body";
 
 type Props = {
   transactions: Transaction[];
-  accounts: Account[];
+  accounts: BalanceAccount[];
 };
 
 const MainPage = ({ transactions, accounts }: Props) => {

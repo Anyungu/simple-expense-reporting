@@ -2,7 +2,7 @@ import { formatCurrency } from "@/lib/utils";
 import React from "react";
 
 type Props = {
-  account: Account;
+  account: BalanceAccount;
 };
 
 const ValueCard = ({ account }: Props) => {

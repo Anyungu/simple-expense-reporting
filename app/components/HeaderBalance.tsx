@@ -6,7 +6,7 @@ import Ably from "ably";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  accounts: Account[];
+  accounts: BalanceAccount[];
 };
 
 const HeaderBalance = ({ accounts }: Props) => {

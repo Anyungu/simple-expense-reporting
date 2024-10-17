@@ -1,10 +1,10 @@
 import React from "react";
 import ValueCard from "../components/ValueCard";
 import Ably from "ably";
-import { AblyProvider, ChannelProvider, useChannel } from "ably/react";
+import { AblyProvider, ChannelProvider } from "ably/react";
 
 type Props = {
-  accounts: Account[];
+  accounts: BalanceAccount[];
 };
 
 function CardsSection({ accounts }: Props) {

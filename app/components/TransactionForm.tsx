@@ -128,7 +128,7 @@ const TransactionForm = ({ className, ...props }: Props) => {
           className="w-full"
           onClick={() => {
             setLoading(true);
-            fetch("/transaction", {
+            fetch("/api/transaction", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
