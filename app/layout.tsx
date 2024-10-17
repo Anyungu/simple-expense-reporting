@@ -21,18 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
+          "min-h-screen  antialiased",
           inter.className
         )}
       >
         <NextAuthProvider>
-          <main
-            className=" min-h-screen min-w-screen "
-            style={{
-              background:
-                "linear-gradient(to right, var(--bg-from), var(--bg-to))",
-            }}
-          >
+          <main className=" min-h-screen min-w-screen bg-gradient-to-r from-bg-from to-bg-to">
             {children}
             <Toaster />
           </main>
