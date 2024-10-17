@@ -88,7 +88,8 @@ const createInitialBalances = async (
           data: {
             name,
             companyId,
-            balance,
+            balance:
+              typeof balance === "number" ? balance : parseInt(balance, 10),
           },
         })
       )
