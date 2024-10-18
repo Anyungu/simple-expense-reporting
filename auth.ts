@@ -10,6 +10,7 @@ declare module "next-auth" {
     user: {
       id: string;
       email: string;
+      image: string;
       companies: Company[];
     };
   }
@@ -43,6 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (token && token.sub) {
         session.user.id = token?.sub as string;
+        session.user.image = token?.picture || "";
         const companies = await getUserCompanies(token?.sub);
         session.user.companies = companies || [];
       } else {

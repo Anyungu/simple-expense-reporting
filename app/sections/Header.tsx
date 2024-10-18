@@ -58,7 +58,15 @@ const Header = ({}: Props) => {
           Transactions
         </div>
       </div>
-      <div>{/* <UserButton /> */}</div>
+      <div className=" py-2">
+        <Image
+          className=" rounded-full"
+          width={40}
+          height={40}
+          src={session?.user?.image}
+          alt=""
+        />
+      </div>
     </div>
   );
 };
