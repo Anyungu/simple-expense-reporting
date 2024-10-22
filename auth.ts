@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import db from "@/db/db";
 import { getUserCompanies } from "./db/db.util";
+import { verifyUserAction } from "./lib/actions/db";
 
 declare module "next-auth" {
   interface Session {
@@ -25,14 +26,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        // const { email, password } = await signInSchema.parseAsync(credentials);
-        // const { user, error } = await userLogIn(email, password);
+        const [err, user] = await verifyUserAction(
+          credentials?.email as string,
+          credentials?.password as string
+        );
 
-        // if (error) {
-        //   throw Error(error);
-        // }
+        // console.log(err?.message, user, 100);
 
-        return { email: "test", ...{ id: "id" } };
+        if (err) {
+          throw new Error(err?.message);
+        }
+        return user;
       },
     }),
     Google({
@@ -42,6 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
+      console.log(200, session, token, 200)
       if (token && token.sub) {
         session.user.id = token?.sub as string;
         session.user.image = token?.picture || "";
@@ -53,9 +58,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return session;
     },
-    // async jwt({ token }) {
-
-    //   console.log(100, user, 100)
+    // async jwt({ token, user }) {
+    //   console.log(100, user, 100);
     //   const customUser: any = user;
     //   if (customUser) {
     //     token.id = customUser.id;

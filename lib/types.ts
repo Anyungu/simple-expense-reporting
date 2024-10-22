@@ -77,3 +77,13 @@ type StepConfig = {
   type: "text" | "number" | "textarea" | "custom";
   question: string;
 };
+
+type User = {
+  id: string;
+  name?: string | null;
+  email: string;
+  emailVerified: boolean | null;
+  image?: string | null;
+};
+
+type ErrorValueResponse<T> = [Error | null, T | null];

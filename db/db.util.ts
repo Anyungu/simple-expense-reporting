@@ -1,6 +1,6 @@
-// import { cache } from "react";
 import { TransactionType, UserRoleEnum } from "@prisma/client";
 import prisma from "./db";
+import bcrypt from "bcryptjs";
 
 export const getAccounts = async (companyId: number) => {
   const accounts: BalanceAccount[] = await prisma?.balanceAccount?.findMany({
@@ -99,4 +99,40 @@ const createInitialBalances = async (
   } catch (error) {
     console.error("Error creating balances:", error);
   }
+};
+
+const findUserByEmail = async (email: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  return user;
+};
+
+export const verifyUser = async (
+  email: string,
+  password: string
+): Promise<ErrorValueResponse<User>> => {
+  const user = await findUserByEmail(email);
+
+  if (!user) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    return [null, user];
+  }
+
+  const match = await bcrypt.compare(password, user?.password || "");
+  if (!match) {
+    return [Error("Incorrect password"), null];
+  }
+  return [null, user];
 };

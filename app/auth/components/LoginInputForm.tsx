@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -24,6 +27,8 @@ const formSchema = z.object({
 type Props = {};
 
 const LoginInputForm = ({}: Props) => {
+  const [loggingIn, setLoggingIn] = useState<boolean>(false);
+  const router = useRouter();
   const loginForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,8 +37,15 @@ const LoginInputForm = ({}: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoggingIn(true);
+    await signIn("credentials", {
+      redirect: true,
+      redirectTo: "/",
+      ...values,
+    });
+
+    setLoggingIn(false);
   }
   return (
     <Form {...loginForm}>
@@ -59,7 +71,7 @@ const LoginInputForm = ({}: Props) => {
         <div className=" space-y-1">
           <FormField
             control={loginForm.control}
-            name="email"
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className=" hidden laptop:block">Password</FormLabel>
@@ -83,6 +95,11 @@ const LoginInputForm = ({}: Props) => {
           className="rounded-3xl w-full uppercase bg-gradient-to-r from-[#93C5FD] to-[#D8B4FE] font-semibold"
           type="submit"
         >
+          <Loader2
+            className={`mr-2 h-4 w-4 animate-spin ${
+              loggingIn ? "block" : "hidden"
+            } `}
+          />
           Login
         </Button>
       </form>
