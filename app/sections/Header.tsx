@@ -17,8 +17,53 @@ const Header = ({}: Props) => {
   const { data: session } = useSession();
   const { activeHeaderTab, updateActiveHeaderTab } = useOpsStore();
 
+  console.log(session?.user);
+
   if (!session?.user.companies || session.user.companies.length === 0) {
-    return null;
+    return (
+      <div className=" flex flex-row justify-end items-center">
+        <div className=" py-2 flex flex-row justify-center items-center">
+          <Popover>
+            <PopoverTrigger>
+              {session?.user?.image ? (
+                <Image
+                  className=" rounded-full"
+                  width={40}
+                  height={40}
+                  src={session?.user?.image}
+                  alt=""
+                />
+              ) : (
+                <div className=" w-8 h-8 items-center justify-center flex font-semibold rounded-full uppercase bg-white">
+                  {session?.user?.email[0]}
+                </div>
+              )}
+            </PopoverTrigger>
+            <PopoverContent className="flex flex-col gap-4">
+              <div className=" flex flex-row items-center gap-2 hover:cursor-pointer hover:text-gray-400">
+                <User size={20} />
+                <p>profile</p>
+              </div>
+              <div className=" flex flex-row items-center gap-2 hover:cursor-pointer hover:text-gray-400">
+                <Settings size={20} />
+                <p>settings</p>
+              </div>
+              <hr />
+
+              <div
+                className=" flex flex-row items-center gap-2 hover:cursor-pointer hover:text-gray-400"
+                onClick={() => {
+                  signOut();
+                }}
+              >
+                <LogOut size={20} />
+                <p>Sign Out</p>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </div>
+    );
   }
   return (
     <div className=" flex flex-row justify-between pt-4 px-2 bg-[#FFFFFF]  shadow-2xl">

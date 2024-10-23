@@ -43,9 +43,15 @@ const LoginInputForm = ({}: Props) => {
       redirect: true,
       redirectTo: "/",
       ...values,
+    })
+    .then(() => {
+      setLoggingIn(false);
+    })
+    .catch(() => {
+       setLoggingIn(false);
     });
 
-    setLoggingIn(false);
+   
   }
   return (
     <Form {...loginForm}>
