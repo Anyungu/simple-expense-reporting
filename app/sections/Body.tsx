@@ -21,8 +21,6 @@ const Body = ({ accounts, transactions }: Props) => {
   const { data: session, status } = useSession();
   const { activeHeaderTab } = useOpsStore();
 
-  console.log(session);
-
   if (status === "loading") {
     return (
       <div className=" px-8 py-12 flex items-center justify-center">

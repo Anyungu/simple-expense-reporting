@@ -39,7 +39,11 @@ const TransactionTypePoppover = ({}: Props) => {
           aria-expanded={open}
           className="w-[100%] justify-between"
         >
-          {type ? type : "Select Option..."}
+          {type
+            ? transactionTypeOptions.find(
+                (transactionType) => transactionType.value === type
+              )?.text
+            : "Select Option..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
