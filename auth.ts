@@ -31,10 +31,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           credentials?.password as string
         );
 
-        // console.log(err?.message, user, 100);
-
         if (err) {
-          throw new Error(err?.message);
+          return null;
         }
         return user;
       },
@@ -46,7 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
-      console.log(200, session, token, 200)
+      console.log(200, session, token, 200);
       if (token && token.sub) {
         session.user.id = token?.sub as string;
         session.user.image = token?.picture || "";

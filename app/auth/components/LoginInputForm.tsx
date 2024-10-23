@@ -28,7 +28,9 @@ type Props = {};
 
 const LoginInputForm = ({}: Props) => {
   const [loggingIn, setLoggingIn] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const router = useRouter();
+
   const loginForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,19 +41,19 @@ const LoginInputForm = ({}: Props) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoggingIn(true);
-    await signIn("credentials", {
-      redirect: true,
-      redirectTo: "/",
+    const res = await signIn("credentials", {
+      redirect: false,
       ...values,
-    })
-    .then(() => {
-      setLoggingIn(false);
-    })
-    .catch(() => {
-       setLoggingIn(false);
     });
 
-   
+    if (res?.error) {
+      setError("Invalid credentials");
+      setLoggingIn(false);
+
+      return;
+    }
+
+    router.push("/");
   }
   return (
     <Form {...loginForm}>
@@ -97,17 +99,24 @@ const LoginInputForm = ({}: Props) => {
             <p className=" text-xs">Forgot password?</p>
           </div>
         </div>
-        <Button
-          className="rounded-3xl w-full uppercase bg-gradient-to-r from-[#93C5FD] to-[#D8B4FE] font-semibold"
-          type="submit"
-        >
-          <Loader2
-            className={`mr-2 h-4 w-4 animate-spin ${
-              loggingIn ? "block" : "hidden"
-            } `}
-          />
-          Login
-        </Button>
+        <div>
+          {error && (
+            <div className=" text-red-500 text-xs text-center">{error}</div>
+          )}
+          <Button
+            className="rounded-3xl w-full uppercase bg-gradient-to-r from-[#93C5FD] to-[#D8B4FE] font-semibold"
+            type="submit"
+            disabled={loggingIn}
+          >
+            <Loader2
+              className={`mr-2 h-4 w-4 animate-spin ${
+                loggingIn ? "block" : "hidden"
+              } `}
+            />
+
+            {loggingIn ? "Logging In..." : " Login"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

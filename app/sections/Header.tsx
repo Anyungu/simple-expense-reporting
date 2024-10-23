@@ -17,8 +17,6 @@ const Header = ({}: Props) => {
   const { data: session } = useSession();
   const { activeHeaderTab, updateActiveHeaderTab } = useOpsStore();
 
-  console.log(session?.user);
-
   if (!session?.user.companies || session.user.companies.length === 0) {
     return (
       <div className=" flex flex-row justify-end items-center">
