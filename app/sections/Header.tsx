@@ -65,10 +65,10 @@ const Header = ({}: Props) => {
   }
   return (
     <div className=" flex flex-row justify-between pt-4 px-2 bg-[#FFFFFF]  shadow-2xl">
-      <div className="flex flex-row space-x-6">
+      <div className="flex flex-row space-x-4 laptop:space-x-6">
         <div className="">
           <Image
-            src={"/logo/file.jpg"}
+            src={session?.user?.companies[0]?.logo}
             width={50}
             height={50}
             alt="Picture of the author"
@@ -109,13 +109,29 @@ const Header = ({}: Props) => {
       <div className=" py-2 flex flex-row justify-center items-center">
         <Popover>
           <PopoverTrigger>
-            <Image
-              className=" rounded-full"
-              width={40}
-              height={40}
-              src={session?.user?.image}
-              alt=""
-            />
+            {session?.user?.image ? (
+              <>
+                <Image
+                  className=" rounded-full hidden tabs:block"
+                  width={40}
+                  height={40}
+                  src={session?.user?.image}
+                  alt=""
+                />
+
+                <Image
+                  className=" rounded-full block tabs:hidden"
+                  width={30}
+                  height={30}
+                  src={session?.user?.image}
+                  alt=""
+                />
+              </>
+            ) : (
+              <div className="w-4 h:4 lapotp:w-8 laptop:h-8 items-center justify-center flex font-semibold rounded-full uppercase bg-white">
+                {session?.user?.email[0]}
+              </div>
+            )}
           </PopoverTrigger>
           <PopoverContent className="flex flex-col gap-4">
             <div className=" flex flex-row items-center gap-2 hover:cursor-pointer hover:text-gray-400">

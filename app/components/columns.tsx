@@ -17,13 +17,13 @@ import {
 //   SelectTrigger,
 //   SelectValue,
 // } from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
 import { ColumnDef, Row, Table } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import TableSorting from "./TableSorting";
 import { format } from "date-fns";
 import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   row: Row<Transaction>;
@@ -31,6 +31,7 @@ type Props = {
 
 const ActionHeader = ({ row }: Props) => {
   const router = useRouter();
+  const { toast } = useToast();
   const transaction = row.original as Transaction;
 
   return (
@@ -53,7 +54,7 @@ const ActionHeader = ({ row }: Props) => {
           className=" cursor-pointer"
           onClick={() => {
             // setLoading(true);
-            fetch("/transaction", {
+            fetch("/api/transaction", {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",

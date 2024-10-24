@@ -142,7 +142,7 @@ const TransactionForm = ({ className, ...props }: Props) => {
                   type,
                   amount,
                   reference,
-                  companyId: session?.user?.id,
+                  companyId: session?.user?.companies[0]?.id,
                 },
                 balanceChange: getLiveBalanceAfterTransaction(type, amount),
               }),

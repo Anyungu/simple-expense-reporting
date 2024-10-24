@@ -239,7 +239,7 @@ const CompanyStepperForm = () => {
             }}
           >
             <div>{creatingCompany ? "Submitting..." : "Submit"}</div>
-            {!creatingCompany && (
+            {creatingCompany && (
               <Loader2Icon className="animate-spin" size={18} />
             )}
           </motion.button>
