@@ -12,7 +12,7 @@ model BalanceAccount {
   id        Int         @id @default(autoincrement())
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  name      AccountName @unique
+  name      AccountName
   balance   Int         @default(0)
   companyId Int
   company   Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
