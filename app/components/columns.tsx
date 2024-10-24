@@ -24,6 +24,7 @@ import TableSorting from "./TableSorting";
 import { format } from "date-fns";
 import { getLiveBalanceAfterTransaction } from "@/lib/transaction.util";
 import { useToast } from "@/hooks/use-toast";
+import { useSession } from "next-auth/react";
 
 type Props = {
   row: Row<Transaction>;
@@ -32,6 +33,7 @@ type Props = {
 const ActionHeader = ({ row }: Props) => {
   const router = useRouter();
   const { toast } = useToast();
+  const { data: session } = useSession();
   const transaction = row.original as Transaction;
 
   return (
@@ -60,6 +62,7 @@ const ActionHeader = ({ row }: Props) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
+                companyId: session?.user?.companies[0]?.id,
                 id: transaction?.id,
                 transactionRolled: !transaction?.transactionRolled,
                 balanceChange: getLiveBalanceAfterTransaction(

@@ -19,7 +19,10 @@ export async function POST(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.BANK,
+        companyId_name: {
+          companyId: data?.companyId,
+          name: AccountName.BANK,
+        },
       },
       data: {
         balance: {
@@ -29,7 +32,10 @@ export async function POST(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.CASH,
+        companyId_name: {
+          companyId: data?.companyId,
+          name: AccountName.CASH,
+        },
       },
       data: {
         balance: {
@@ -39,7 +45,10 @@ export async function POST(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.INVESTMENT,
+        companyId_name: {
+          companyId: data?.companyId,
+          name: AccountName.INVESTMENT,
+        },
       },
       data: {
         balance: {
@@ -49,7 +58,10 @@ export async function POST(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.REVENUE,
+        companyId_name: {
+          companyId: data?.companyId,
+          name: AccountName.REVENUE,
+        },
       },
       data: {
         balance: {
@@ -59,7 +71,10 @@ export async function POST(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.EXPENDITURE,
+        companyId_name: {
+          companyId: data?.companyId,
+          name: AccountName.EXPENDITURE,
+        },
       },
       data: {
         balance: {
@@ -85,7 +100,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   const body = await request.json();
-  const { id, transactionRolled, balanceChange } = body;
+  const { id, transactionRolled, balanceChange, companyId } = body;
 
   const [
     ,
@@ -103,7 +118,10 @@ export async function PUT(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.BANK,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.BANK,
+        },
       },
       data: {
         balance: {
@@ -113,7 +131,10 @@ export async function PUT(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.CASH,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.CASH,
+        },
       },
       data: {
         balance: {
@@ -124,17 +145,23 @@ export async function PUT(request: Request) {
 
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.INVESTMENT,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.INVESTMENT,
+        },
       },
       data: {
         balance: {
-          increment: balanceChange.cashBalance,
+          increment: balanceChange.investmentBalance,
         },
       },
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.REVENUE,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.REVENUE,
+        },
       },
       data: {
         balance: {
@@ -144,7 +171,10 @@ export async function PUT(request: Request) {
     }),
     prisma.balanceAccount.update({
       where: {
-        name: AccountName.EXPENDITURE,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.EXPENDITURE,
+        },
       },
       data: {
         balance: {
@@ -155,27 +185,42 @@ export async function PUT(request: Request) {
 
     prisma.balanceAccount.findUnique({
       where: {
-        name: AccountName.BANK,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.BANK,
+        },
       },
     }),
     prisma.balanceAccount.findUnique({
       where: {
-        name: AccountName.CASH,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.CASH,
+        },
       },
     }),
     prisma.balanceAccount.findUnique({
       where: {
-        name: AccountName.INVESTMENT,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.INVESTMENT,
+        },
       },
     }),
     prisma.balanceAccount.findUnique({
       where: {
-        name: AccountName.REVENUE,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.REVENUE,
+        },
       },
     }),
     prisma.balanceAccount.findUnique({
       where: {
-        name: AccountName.EXPENDITURE,
+        companyId_name: {
+          companyId: companyId,
+          name: AccountName.EXPENDITURE,
+        },
       },
     }),
   ]);
